@@ -1,33 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   easyfind.hpp                                       :+:      :+:    :+:   */
+/*   Span.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/05 13:26:41 by svolkau           #+#    #+#             */
-/*   Updated: 2026/02/05 14:24:03 by svolkau          ###   ########.fr       */
+/*   Created: 2026/02/05 14:21:36 by svolkau           #+#    #+#             */
+/*   Updated: 2026/02/05 14:38:58 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EASYFIND_HPP
-#define EASYFIND_HPP
+#ifndef SPAN_CLASS_CPP
+#define SPAN_CLASS_CPP
 
 #include <iostream>
 #include <exception>
 #include <algorithm>
 #include <vector>
 #include <list>
+#include <limits>
 
-template<typename T>
-void	easyfind(T &container, int valueToFind)
+class Span
 {
-	std::exception e;
-	typename T::iterator it = std::find(container.begin(), container.end(), valueToFind);
-	if (it != container.end())
-		std::cout << "Value " << valueToFind << " found in the container." << std::endl;
-	else
-		throw std::invalid_argument ("Value not found in the container.");
-}
+	private:
+		std::vector<int> _numbers;
+		unsigned int _maxSize;
+		
+	public:
+		Span(unsigned int N);
+		Span(const Span &other);	
+		Span &operator=(const Span &other);
+		~Span();
+		
+		void addNumber(int number);
+		void shortestSpan();
+		void longestSpan();
+	
+	class TooFewNumbersException : public std::exception
+	{
+		public:
+			virtual const char *what() const throw();
+	};
+};
 
 #endif
